@@ -23,6 +23,11 @@ Background: movies have been added to database
   Then 10 seed movies should exist
 
 Scenario: restrict to movies with 'PG' or 'R' ratings
+  Given I check the following ratings: PG, R
+  And I uncheck the following ratings: G, PG-13, NC-17
+  When I press "Refresh"
+  Then I should see entries with: PG, R
+  And I should not see entries with: G, PG-13, NC-17
   # enter step(s) to check the 'PG' and 'R' checkboxes
   # enter step(s) to uncheck all other checkboxes
   # enter step to "submit" the search form on the homepage
@@ -30,4 +35,7 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to ensure that other movies are not visible
 
 Scenario: all ratings selected
+  Given I check the following ratings: G, PG, PG-13, NC-17, R
+  When I press "Refresh"
+  Then I should see all the movies
   # see assignment
